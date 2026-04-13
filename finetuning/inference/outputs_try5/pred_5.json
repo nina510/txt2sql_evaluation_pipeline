@@ -1,0 +1,7 @@
+{
+  "0": "SELECT COUNT(CASE WHEN Currency = 'EUR' THEN 1 END) / COUNT(CASE WHEN Currency = 'CZK' THEN 1 END) AS Ratio\nFROM customers\nJOIN transactions_1k ON customers.CustomerID = transactions_1k.CustomerID\nWHERE Currency IN ('EUR', 'CZK');",
+  "1": "SELECT T2.CustomerID, T2.Name, SUM(T1.Consumption) AS TotalConsumption\nFROM yearmonth AS T1\nJOIN customers AS T2 ON T1.CustomerID = T2.CustomerID\nWHERE T1.Date BETWEEN '201201' AND '201212'\nGROUP BY T2.CustomerID, T2.Name\nORDER BY TotalConsumption ASC\nLIMIT 1",
+  "2": "SELECT AVG(Consumption) / 12 FROM yearmonth WHERE Date BETWEEN '201301' AND '201312' AND Segment = 'SME'",
+  "3": "SELECT \n    SUM(CASE WHEN T1.Currency = 'CZK' THEN T1.Consumption ELSE 0 END) - \n    SUM(CASE WHEN T1.Currency = 'EUR' THEN T1.Consumption ELSE 0 END) AS ConsumptionDifference\nFROM \n    yearmonth AS T1\nJOIN \n    customers AS T2 ON T1.CustomerID = T2.CustomerID\nWHERE \n    T1.Date BETWEEN '201201' AND '201212'\n    AND T2.Currency IN ('CZK', 'EUR');",
+  "4": "SELECT SUBSTR(Date, 1, 4) AS Year, SUM(Consumption) AS TotalConsumption\nFROM yearmonth\nGROUP BY SUBSTR(Date, 1, 4)\nORDER BY TotalConsumption DESC\nLIMIT 1"
+}
