@@ -1,7 +1,3 @@
-# Mini Dev Homework README
-
-This document is my personal usage note for running the `mini_dev` repository.
-
 ## 1. Pull latest code
 
 ```bash
